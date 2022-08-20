@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Detalle de ingresos y gastos</h4>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th>Cantidad</th>
+                  <th>Tipo</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let item of data | ordenIngreso"  >
+                  <td class="fuente"> {{item.description}} </td>
+                  <td class="fuente"> {{item.cantidad | currency : 'EUR':'symbol-narrow':'.0-0' }} </td>
+                  <td class="fuente" 
+                      [ngClass]="item.tipo==='Ingreso' ? 'text-success' : 'text-danger' " 
+                      > {{item.tipo}} </td>
+                  <td> 
+                    <button type="button" 
+                            class="btn btn-primary"
+                            (click)="borrar( item.uid )"
+                            >
+                      <i class="fa fa-trash" ></i>
+                      Borrar</button>  
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+
+
+          </div>
+        </div>
+    </div>
+</div>
+  
