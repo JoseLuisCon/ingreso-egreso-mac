@@ -9,6 +9,7 @@ import { filter } from 'rxjs/operators'
 import { ingresoEgreso } from 'src/app/models/ingreso-egreso.models'
 import { IngresoEgresoService } from 'src/app/services/ingreso-egreso.service'
 import Swal from 'sweetalert2'
+import { AppStateWithIngreso } from '../ingreso-egreso.reducer'
 
 @Component({
   selector: 'app-detalle',
@@ -22,7 +23,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
   
   data: ingresoEgreso[]
   susbcriptionItems: Subscription;
-  constructor(private store: Store<AppState>,
+  constructor(private store: Store<AppStateWithIngreso>,
               private ingresoEgresoService: IngresoEgresoService) {}
 
   ngOnInit() {

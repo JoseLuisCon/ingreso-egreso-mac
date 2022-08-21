@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 
 import { Store } from '@ngrx/store'
-import { AppState } from 'src/app/app.reducer'
+import { AppStateWithIngreso } from '../ingreso-egreso.reducer'
+
 import { ingresoEgreso } from 'src/app/models/ingreso-egreso.models'
 
 
@@ -17,7 +18,7 @@ export class EstadisticaComponent implements OnInit {
   totalCantidadGastos = 0
   totalGastos = 0
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppStateWithIngreso>) {}
 
   ngOnInit() {
     this.store

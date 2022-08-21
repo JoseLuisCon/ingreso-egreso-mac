@@ -1,32 +1,39 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
-import { tap } from "rxjs/operators";
+import { Injectable } from '@angular/core'
+import {
+  CanActivate,
+  CanLoad,
+  Router,
+} from '@angular/router'
+import { Observable } from 'rxjs'
+import { AuthService } from './auth.service'
+import { tap, take } from 'rxjs/operators'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  
-  constructor(private authService: AuthService,
-              private router: Router){}
-  
+export class AuthGuard implements CanActivate, CanLoad {
+  constructor(private authService: AuthService, private router: Router) {}
+
   canActivate(): Observable<boolean> {
-    
-      return this.authService.isAuth()
-        .pipe(
-          tap( (estado) => {
-            if (!estado) {
-              console.log(' 💑 ',estado);
-              
-              this.router.navigate(['/login']);
-              return false;
-            }
-            return true;
-          } )
-        );
-    
+    return this.authService.isAuth().pipe(
+      tap((estado) => {
+        if (!estado) {
+          console.log(' 💑 ', estado)
+
+          this.router.navigate(['/login'])
+          return false
+        }
+        return true
+      }),
+    )
   }
-  
+  canLoad():  Observable<boolean>  {
+    return this.authService.isAuth().pipe(
+      tap((estado) => {
+        if (!estado) {
+          this.router.navigate(['/login'])
+        }}),
+        take(1)
+    );
+  }
 }
